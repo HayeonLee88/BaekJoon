@@ -24,6 +24,7 @@ for i in tmp: # 카드 우선순위 정렬
     heapq.heappush(h, i)
 
 for i in range(m):
+    # heappushpop, heapreplace를 사용하면 안됨.
     a1, a2 = heapq.heappop(h), heapq.heappop(h)
     new_a = a1 + a2
     heapq.heappush(h, new_a)

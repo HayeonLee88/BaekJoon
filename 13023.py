@@ -15,7 +15,6 @@ How?
     친구관계를 그래프로 나타내고, 깊이 우선 탐색으로 해당 친구관계부터 이어지는 친구관계가 4개가 있는지 확인한다.
     1/0으로 체크하는 것보다 True/False으로 체크하는게 더 빠르다
 '''
-# 6:34~52
 import sys
 sys.setrecursionlimit(10000)
 input = lambda: sys.stdin.readline().rstrip()

@@ -1,4 +1,4 @@
 n = int(input())
-n_list = list(map(int, input().split()))
-k = int(input())
-print(n_list.count(k))
+nums = list(map(int, input().split()))
+
+print(nums.count(int(input())))

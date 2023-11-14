@@ -11,6 +11,10 @@ for i in range(total_students):
 
 answer = 0
 for girl, boy in students:
-    answer += girl // max_num + girl % max_num + boy // max_num + boy % max_num
+    answer += girl // max_num + boy // max_num
+    if girl % max_num:
+        answer += 1
+    if boy % max_num:
+        answer += 1
 
 print(answer)

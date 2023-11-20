@@ -5,7 +5,7 @@ input = lambda: sys.stdin.readline().rstrip()
 
 n = int(input())
 stack = deque() # 수열을 만들 때 사용하는 스택
-answer = deque() # 수열을 만들 때의 연산을 저장하는 변수
+answer = [] # 수열을 만들 때의 연산을 저장하는 변수
 end = 0 # stack에 append한 제일 큰 수
 
 for i in range(n):

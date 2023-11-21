@@ -1,24 +1,21 @@
 import sys
-from collections import deque
 
 input = lambda: sys.stdin.readline().rstrip()
 
 n = int(input())
-top_heights = list(map(int, input().split()))
-stack = []
+tops = list(map(int, input().split()))
 
 answer = []
-for i, h in enumerate(top_heights):
-    while stack:
-        if stack[-1][1] >= h:
-            answer.append(stack[-1][0] + 1)
-            stack.append((i, h))
-            break
-        else:
-            stack.pop()
-    if not stack:
-        stack.append((0, 0))
+highest = [[0, 0]] # i번째의 탑에서 가장 가까운 [제일 높은 탑의 위치, 높이]를 담는 스택
+
+for i in range(n):
+    top = tops[i]
+    while highest and top > highest[-1][-1]:
+        highest.pop()
+    if highest:
+        answer.append(highest[-1][0])
+    else:
         answer.append(0)
-        stack.append((i, h))
+    highest.append([i + 1, top])
 
 print(*answer)

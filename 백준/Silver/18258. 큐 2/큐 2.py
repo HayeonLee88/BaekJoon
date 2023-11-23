@@ -8,8 +8,10 @@ q = deque()
 
 for _ in range(n):
     cmd = list(input().split())
-    if cmd[0] == 'size': # q에 정수가 있든 없든 상관없이 실행되는 명령
+    if cmd[0] == 'size': # q에 정수가 있든 없든 상관없이 똑같이 실행되는 명령
         print(len(q))
+    elif cmd[0] == 'push': 
+        q.append(cmd[-1])
     else:
         if q:
             if cmd[0] == 'pop':
@@ -18,15 +20,11 @@ for _ in range(n):
                 print(q[0])
             elif cmd[0] == 'back':
                 print(q[-1])
-            elif cmd[0] == 'empty':
+            else: # empty
                 print(0)
-            else:  # push X
-                q.append(cmd[-1])
         else:
             if cmd[0] in ['pop', 'front', 'back']:
                 print(-1)
-            elif cmd[0] == 'empty':
+            else : # empty
                 print(1)
-            else: # push X
-                q.append(cmd[-1])
                 

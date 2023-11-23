@@ -9,17 +9,13 @@ answer = 0
 for i in range(n):
     now = line[i]
     cnt_same_num = 1
-    while stack:
-        if stack[-1][0] < now:
-            _, cnt = stack.pop()
-            answer += cnt
-        elif stack[-1][0] == now:
-            _, cnt = stack.pop()
+    while stack and now >= stack[-1][0]:
+        num, cnt = stack.pop()
+        answer += cnt
+        if num == now:
             cnt_same_num += cnt
-            answer += cnt
-        else:
-            answer += 1
-            break
+    if stack:
+        answer += 1
     stack.append([now, cnt_same_num])
 
 print(answer)

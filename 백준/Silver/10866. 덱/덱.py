@@ -7,10 +7,11 @@ n = int(input())
 q = deque()
 
 for i in range(n):
-    cmd = input()
+    cmd_list = list(input().split())
+    cmd = cmd_list[0]
     if cmd == "pop_front":
         print(q.popleft() if q else -1)
-    if cmd == "pop_back":
+    elif cmd == "pop_back":
         print(q.pop() if q else -1)
     elif cmd == "size":
         print(len(q))
@@ -20,9 +21,7 @@ for i in range(n):
         print(q[0] if q else -1)
     elif cmd == "back":
         print(q[-1] if q else -1)
-    else: # append
-        cmd = list(cmd.split())
-        if cmd[0] == "push_front":
-            q.appendleft(cmd[-1])
-        elif cmd[0] == "push_back":
-            q.append(cmd[-1])
+    elif cmd == "push_front":
+        q.appendleft(cmd_list[-1])
+    else:
+        q.append(cmd_list[-1])

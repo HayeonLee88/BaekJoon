@@ -1,12 +1,14 @@
+import sys
 from collections import deque
 
-n = int(input())
-q = deque()
-q.extend(range(1, n + 1, 1))
-while len(q) > 2:
-    q.popleft()
-    step2 = q.popleft()
-    q.append(step2)
+input = lambda: sys.stdin.readline().rstrip()
 
-answer = q.pop()
-print(answer)
+n = int(input())
+cards = deque()
+cards.extend(range(1, n + 1, 1))
+
+while len(cards) > 1:
+    cards.popleft()
+    card = cards.popleft()
+    cards.append(card)
+print(cards[0])

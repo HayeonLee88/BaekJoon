@@ -1,31 +1,39 @@
 import sys
+
 input = lambda: sys.stdin.readline().rstrip()
-sys.setrecursionlimit(30001)
-def DFS(x, y):
-    if x < 0 or x >= m or y < 0 or y >= n:
+
+sys.setrecursionlimit(100001)
+
+t = int(input())
+
+
+def dfs(x, y):
+    if x < 0 or x >= n or y < 0 or y >= m:
         return False
-    if graph[x][y]:
+    if graph[x][y]: # 배추가 심어져 있다면
         graph[x][y] = 0
-        DFS(x - 1, y)
-        DFS(x + 1, y)
-        DFS(x, y - 1)
-        DFS(x, y + 1)
+        dfs(x - 1, y)
+        dfs(x + 1, y)
+        dfs(x, y - 1)
+        dfs(x, y + 1)
         return True
     return False
 
-T = int(input())
-for test_case in range(T):
+answer = []
+for _ in range(t):
+    tmp = 0
     m, n, k = map(int, input().split())
-    graph = [[0] * n for _ in range(m)]
+    graph = [[0] * m for _ in range(n)]
 
-    for i in range(k):
-        x, y = map(int, input().split())
+
+    for _ in range(k):
+        y, x = map(int, input().split())
         graph[x][y] = 1
 
-    answer = 0
-    for i in range(m):
-        for j in range(n):
-            if DFS(i, j):
-                answer += 1
+    for i in range(n):
+        for j in range(m):
+            if dfs(i, j):
+                tmp += 1
+    answer.append(tmp)
 
-    print(answer)
+print(*answer, sep='\n')

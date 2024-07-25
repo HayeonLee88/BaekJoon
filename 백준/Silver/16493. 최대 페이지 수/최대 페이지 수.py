@@ -10,8 +10,8 @@ for _ in range(m):
     info.append(list(map(int, input().split())))
 
 for i in range(1, m + 1):
+    now = info[i][0]
     for j in range(1, n + 1):
-        now = info[i][0]
         if now <= j:
             dp[i][j] = max(dp[i - 1][j], (dp[i - 1][j - now] + info[i][1]))
         elif now > j:

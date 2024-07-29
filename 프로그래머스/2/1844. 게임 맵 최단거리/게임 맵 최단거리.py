@@ -1,6 +1,5 @@
 from collections import deque
 
-INF = int(1e9)
 def solution(maps):
     answer = 0
     n, m = len(maps), len(maps[0])

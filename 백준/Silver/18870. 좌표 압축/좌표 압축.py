@@ -1,9 +1,15 @@
 import sys
+
 input = lambda:sys.stdin.readline().rstrip()
 
 n = int(input())
-data = list(map(int, input().split()))
-sorted_data = sorted(set(data))
-dict_zip_data = {key:value for value, key in enumerate(sorted_data)}
+points = list(map(int, input().split()))
+sorted_points = sorted(set(points))
+compressed_points = dict()
+cnt = 0
+for point in sorted_points:
+    compressed_points[point] = cnt
+    cnt += 1
 
-print(' '.join(str(dict_zip_data[x]) for x in data))
+for point in points:
+    print(compressed_points[point], end=' ')

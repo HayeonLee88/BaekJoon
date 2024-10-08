@@ -8,19 +8,16 @@ for i in range(n - 1):
     data[a].append(b)
     data[b].append(a)
 
-visited = [False] * (n + 1)
 answer = [0] * (n + 1)
 
 def BFS(start):
     q = deque()
     q.append(start)
-    visited[start] = True
     while q:
         now = q.popleft()
         for node in data[now]:
-            if visited[node]:
+            if answer[node]:
                 continue
-            visited[node] = True
             answer[node] = now
             q.append(node)
 

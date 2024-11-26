@@ -48,7 +48,6 @@ def dfs(i, graph):
     x, y = cctvs[i][1]
     for dir in range(4):
         tmp = copy.deepcopy(graph)
-        # CCTV 종류에 따른 감시 방법
         if num == 1:
             cctv(x, y, dir, tmp)
         elif num == 2:
@@ -61,13 +60,13 @@ def dfs(i, graph):
             cctv(x, y, dir, tmp)
             cctv(x, y, dir + 1, tmp)
             cctv(x, y, dir + 2, tmp)
-        elif num == 5:
+        else:
             cctv(x, y, dir, tmp)
             cctv(x, y, dir + 1, tmp)
             cctv(x, y, dir + 2, tmp)
             cctv(x, y, dir + 3, tmp)
         
-        dfs(i + 1, tmp) # 다음 cctv 탐색
-        
+        dfs(i + 1, tmp)
+
 dfs(0, graph)
 print(answer)

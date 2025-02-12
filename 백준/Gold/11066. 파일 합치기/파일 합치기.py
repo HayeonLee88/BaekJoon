@@ -1,5 +1,9 @@
 import sys
 
+
+input = lambda:sys.stdin.readline().rstrip()
+
+
 def min_merge_cost(K, files):
     # 누적합 계산
     prefix_sum = [0] * (K + 1)
@@ -17,14 +21,14 @@ def min_merge_cost(K, files):
             
             # 최적의 분할점 k 찾기
             for k in range(i, j):
-                cost = dp[i][k] + dp[k + 1][j] + (prefix_sum[j + 1] - prefix_sum[i])
-                dp[i][j] = min(dp[i][j], cost)
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + (prefix_sum[j + 1] - prefix_sum[i]))
     
     return dp[0][K - 1]
+
 
 # 입력 처리
 T = int(sys.stdin.readline())
 for _ in range(T):
-    K = int(sys.stdin.readline())
-    files = list(map(int, sys.stdin.readline().split()))
+    K = int(input())
+    files = list(map(int, input().split()))
     print(min_merge_cost(K, files))

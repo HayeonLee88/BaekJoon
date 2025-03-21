@@ -1,14 +1,14 @@
-from functools import reduce
-
+'''
+4:10~4:16
+각 종류 별로 옷을 n가지 입기/안입기 -> n + 1
+'''
+from collections import defaultdict
 def solution(clothes):
-    answer = 0
-    dict_ = dict()
-    
-    for name, category in clothes:
-        try:
-            dict_[category] += 1
-        except KeyError:
-            dict_[category] = 2
-            
-    return reduce(lambda x, y: x * y ,dict_.values()) - 1
+    answer = 1
+    dict_ = defaultdict(int)
+    for name, type_ in clothes:
+        dict_[type_] += 1
 
+    for v in dict_.values():
+        answer *= (v + 1)
+    return answer - 1

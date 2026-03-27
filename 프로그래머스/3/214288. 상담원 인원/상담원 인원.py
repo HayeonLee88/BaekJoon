@@ -1,47 +1,51 @@
+'''
+9:45 ~
+
+'''
 import heapq
 
 def solution(k, n, reqs):
-    answer = 0
-    reqs_type = {num: [] for num in range(1, k + 1)}
-    reqs.sort(key=lambda x: (x[2], x[0]))
-    reqs_type[reqs[0][2]].append((reqs[0][0], reqs[0][1]))
+    answer= 0
+    req_info = {num: [] for num in range(1, k + 1)}
+    for a, b, c in reqs:
+        req_info[c].append((a, b))
     
-    for i, (a, b, c) in enumerate(reqs[1:]):
-        reqs_type[c].append((a, b))
-    
-    max_mentor = n - k + 1
-    wait = [[0] * (max_mentor + 1) for _ in range(k + 1)]
+    max_cnt = n - k + 1
+    waiting = [[0] * (max_cnt + 1) for _ in range(k + 1)]
     for num in range(1, k + 1):
-        max_ = n - (k - 1)
-        for i in range(1, max_ + 1):
-            waiting = 0
+        for i in range(1, max_cnt + 1):
             h = []
-            if reqs_type[num][0:1]:
-                a, b = reqs_type[num][0]
-                heapq.heappush(h, (a + b, a))
-            prev_end, prev_start = 0, 0
-            for start, time in reqs_type[num][1:]:
+            wait = 0
+            if req_info[num]:
+                s, t = req_info[num][0]
+                e = s + t
+                heapq.heappush(h, (e, s))
+            for start, time in req_info[num][1:]:
                 while h:
                     prev_end, prev_start = heapq.heappop(h)
+                    # 아직 끝나지 않음
                     if prev_end > start:
                         heapq.heappush(h, (prev_end, prev_start))
                         break
+                # 기다릴 때
                 if len(h) == i:
                     prev_end, prev_start = heapq.heappop(h)
-                    waiting += prev_end - start
+                    wait += prev_end - start
                     heapq.heappush(h, (prev_end + time, prev_end))
+                # 기다리지 않을 때
                 else:
                     heapq.heappush(h, (start + time, start))
-            wait[num][i] = waiting
+            waiting[num][i] = wait
     
-    INF = float('inf')
-    dp = [[INF] * (n + 1) for _ in range(k + 1)]
+    INF = int(1e9)
+    # dp[i][j]: i번 상담사를 j명 썼을 때 총 기다림 시간
+    dp =  [[INF] * (n + 1) for _ in range(k + 1)]
     dp[0][0] = 0
-
-    for c in range(1, k + 1):
-        for used in range(c, n + 1):
-            for m in range(1, used - (c - 1) + 1):
-                if m <= max_mentor:
-                    dp[c][used] = min(dp[c][used], dp[c - 1][used - m] + wait[c][m])
-
-    return dp[k][n]
+    
+    for num in range(1, k + 1):
+        for used in range(num, n + 1):
+            for i in range(1, used - (num - 1) + 1):
+                if i <= max_cnt:
+                    dp[num][used] = min(dp[num][used], dp[num - 1][used - i] + waiting[num][i])
+    answer = dp[k][n]
+    return answer
